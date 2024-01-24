@@ -1,35 +1,44 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from "react";
+import Step1 from "./components/Step1";
+import Step2 from "./components/Step2";
+import Step3 from "./components/Step3";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [step, setStep] = useState(1);
+
+  function incStep() {
+    if (step >= 1 && step <= 2) {
+      setStep(step + 1);
+    }
+  }
+
+  function decStep() {
+    if (step >= 2 && step <= 3) {
+      setStep(step - 1);
+    }
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div>
+      <header>
+        <h1>Multi-Step Form</h1>
+      </header>
+
+      <form>
+        {step === 1 && <Step1 />}
+        {step === 2 && <Step2 />}
+        {step === 3 && <Step3 />}
+        <div>
+          <button type="button" onClick={decStep}>
+            Prev
+          </button>
+          <button type="button" onClick={incStep}>
+            Next
+          </button>
+        </div>
+      </form>
+    </div>
+  );
 }
 
-export default App
+export default App;
